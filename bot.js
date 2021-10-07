@@ -10,6 +10,7 @@ let client = new AWS.SecretsManager({
 });
 
 doMsg();
+//bot.on('message', respond);
 
 client.getSecretValue({SecretId: secretName}, function(err, data) {
     if (err) {
@@ -47,28 +48,28 @@ async function doMsg() {
         token: secret.token,
         autorun: true
     });
-    
+
     bot.on('message', respond);
-    
-    function respond(user, userID, channelID, message, evt) {
-        if (message.toLowerCase.includes('i\'m ')) { // if message includes "i'm"
-            let args = message.substring(message.toLowerCase().indexOf('i\'m')).split(' '); // get each argument
-            args = args.splice(1); // remove "i'm"
-    
-            let includesSo = args[0].toLowerCase().startsWith('so');
-            let includesVery = args[0].toLowerCase().startsWith('very');
-    
-            if (includesSo || includesVery) {
-                bot.sendMessage({
-                    to:channelID,
-                    message:`Hi ${args[0]} ${args[1]}, I'm Dad.`
-                });
-            } else {
-                bot.sendMessage({
-                    to:channelID,
-                    message:`Hi ${args[0]}, I'm Dad.`
-                });
-            }
+}
+
+function respond(user, userID, channelID, message, evt) {
+    if (message.toLowerCase.includes('i\'m ')) { // if message includes "i'm"
+        let args = message.substring(message.toLowerCase().indexOf('i\'m')).split(' '); // get each argument
+        args = args.splice(1); // remove "i'm"
+
+        let includesSo = args[0].toLowerCase().startsWith('so');
+        let includesVery = args[0].toLowerCase().startsWith('very');
+
+        if (includesSo || includesVery) {
+            bot.sendMessage({
+                to:channelID,
+                message:`Hi ${args[0]} ${args[1]}, I'm Dad.`
+            });
+        } else {
+            bot.sendMessage({
+                to:channelID,
+                message:`Hi ${args[0]}, I'm Dad.`
+            });
         }
     }
 }

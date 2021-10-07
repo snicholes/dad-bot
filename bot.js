@@ -9,8 +9,8 @@ let client = new AWS.SecretsManager({
     region: region
 });
 
-doMsg();
-//bot.on('message', respond);
+doMsg().then();
+bot.on('message', respond);
 
 client.getSecretValue({SecretId: secretName}, function(err, data) {
     if (err) {

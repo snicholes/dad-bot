@@ -9,7 +9,7 @@ let client = new AWS.SecretsManager({
     region: region
 });
 
-client.getSecretValue({SecretId: secretName}, function(err, data) {
+await client.getSecretValue({SecretId: secretName}, function(err, data) {
     if (err) {
         if (err.code === 'DecryptionFailureException')
             // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
@@ -41,10 +41,6 @@ client.getSecretValue({SecretId: secretName}, function(err, data) {
         token: (secret) ? secret.token : decodedBinarySecret.token,
         autorun: true
     });
-    
-    let currentPokemon = {};
-    let guessed = false;
-    let maxPts = 10;
     
     bot.on('message', respond);
     

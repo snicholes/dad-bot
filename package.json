@@ -1,0 +1,11 @@
+{
+    "name": "hi-im-dad-bot",
+    "version": "1.0.0",
+    "description": "Hi I'm DadBot",
+    "main": "bot.js",
+    "author": "Sierra Nicholes",
+    "dependencies": {
+        "aws-sdk": "^2.1003.0",
+        "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6"
+    }
+}

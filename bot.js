@@ -42,7 +42,7 @@ async function getMsg() {
     });
 
     let bot = new Discord.Client({
-        token: (secret) ? secret.token : decodedBinarySecret.token,
+        token: secret.token,
         autorun: true
     });
     

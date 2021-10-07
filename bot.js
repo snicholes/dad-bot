@@ -9,8 +9,8 @@ let client = new AWS.SecretsManager({
     region: region
 });
 
-doMsg().then();
-bot.on('message', respond);
+let bot;
+doMsg();
 
 client.getSecretValue({SecretId: secretName}, function(err, data) {
     if (err) {
@@ -44,7 +44,7 @@ client.getSecretValue({SecretId: secretName}, function(err, data) {
 async function doMsg() {
     let secret = await client.getSecretValue({SecretId: secretName}).promise();
 
-    let bot = new Discord.Client({
+    bot = new Discord.Client({
         token: secret.token,
         autorun: true
     });
@@ -53,14 +53,13 @@ async function doMsg() {
 }
 
 function respond(user, userID, channelID, message, evt) {
-    if (message.toLowerCase.includes('i\'m ')) { // if message includes "i'm"
+    if (message.toLowerCase().includes('i\'m ') && user !== 'Hi-Im-DadBot') { // if message includes "i'm"
         let args = message.substring(message.toLowerCase().indexOf('i\'m')).split(' '); // get each argument
         args = args.splice(1); // remove "i'm"
 
-        let includesSo = args[0].toLowerCase().startsWith('so');
-        let includesVery = args[0].toLowerCase().startsWith('very');
+        let includesTerms = ['so','very','really','genuinely','extremely','not'];
 
-        if (includesSo || includesVery) {
+        if ((includesTerms.includes(args[0])) && args.length>1) {
             bot.sendMessage({
                 to:channelID,
                 message:`Hi ${args[0]} ${args[1]}, I'm Dad.`

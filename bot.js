@@ -45,7 +45,7 @@ async function doMsg() {
     let secret = await client.getSecretValue({SecretId: secretName}).promise();
 
     bot = new Discord.Client({
-        token: secret.token,
+        token: JSON.parse(secret).token,
         autorun: true
     });
 
